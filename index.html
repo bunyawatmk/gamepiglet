@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เกมจับคู่ S. suis พิชิตโรค - 5 ด่าน พร้อม AI</title>
+    <title>เกมจับคู่ S. suis พิชิตโรค - 8 ด่าน (Gender & AMR)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -107,6 +107,9 @@
 
         .level-dot {
             transition: all 0.3s ease;
+            width: 2rem;
+            height: 2rem;
+            min-width: 2rem; /* Prevent shrinking */
         }
 
         .level-dot.active {
@@ -126,7 +129,7 @@
             height: 4px;
             flex-grow: 1;
             background-color: #e5e7eb;
-            margin: 0 4px;
+            margin: 0 2px;
             border-radius: 2px;
         }
 
@@ -187,8 +190,8 @@
         <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <i class="fas fa-bacteria text-5xl text-green-600"></i>
         </div>
-        <h1 class="text-3xl md:text-4xl font-bold text-green-800 mb-2">S. suis พิชิตโรค</h1>
-        <p class="text-gray-500 mb-8">เกมทดสอบความรู้เรื่องโรคหูดับในสุกร</p>
+        <h1 class="text-3xl md:text-4xl font-bold text-green-800 mb-2">S. suis & AMR พิชิตโรค</h1>
+        <p class="text-gray-500 mb-8">เกมทดสอบความรู้โรคหูดับและมิติทางสังคม (One Health)</p>
 
         <div class="bg-green-50 rounded-xl p-6 mb-8 text-left border border-green-200">
             <h2 class="text-xl font-bold text-green-800 mb-4 flex items-center">
@@ -197,31 +200,16 @@
             <ul class="space-y-3 text-gray-700 text-sm md:text-base">
                 <li class="flex items-start">
                     <i class="fas fa-bullseye text-red-500 mt-1 mr-2 w-5"></i>
-                    <span><strong>เป้าหมาย:</strong> คุณต้องจับคู่การ์ดทั้งหมดในกระดานให้ถูกต้องเพื่อผ่านด่าน</span>
+                    <span><strong>เป้าหมาย:</strong> จับคู่การ์ดทั้งหมด 8 ด่าน ครอบคลุมทั้งตัวเชื้อโรค และปัจจัยทางสังคม</span>
                 </li>
                 <li class="flex items-start">
                     <i class="fas fa-hand-pointer text-blue-500 mt-1 mr-2 w-5"></i>
-                    <span><strong>การจับคู่:</strong> คลิกที่การ์ดเพื่อพลิกดูข้อความ ต้องหาคู่ที่สัมพันธ์กันระหว่าง
-                        <span class="text-orange-600 font-bold">การ์ดคำถาม (สีส้ม)</span> และ <span
+                    <span><strong>การจับคู่:</strong> หาคู่ระหว่าง <span class="text-orange-600 font-bold">การ์ดคำถาม (สีส้ม)</span> และ <span
                             class="text-green-600 font-bold">การ์ดคำตอบ (สีเขียว)</span></span>
                 </li>
                 <li class="flex items-start">
-                    <i class="fas fa-lightbulb text-yellow-500 mt-1 mr-2 w-5"></i>
-                    <span><strong>ตัวอย่าง:</strong> ถ้าเปิดเจอ "เชื้อมีรูปร่างอย่างไร?" ต้องหาคู่กับ "ทรงกลม
-                        (Coccus)"</span>
-                </li>
-                <li class="flex items-start">
-                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2 w-5"></i>
-                    <span><strong>เมื่อจับคู่ถูก:</strong> การ์ดทั้งคู่จะเปลี่ยนเป็นสีเขียวและมีเครื่องหมายถูก ✅</span>
-                </li>
-                <li class="flex items-start">
                     <i class="fas fa-robot text-purple-500 mt-1 mr-2 w-5"></i>
-                    <span><strong>ฟีเจอร์พิเศษ (AI Corner):</strong> ด้านล่างกระดานจะมีกล่อง "เกร็ดความรู้จากพี่ AI"
-                        เด้งขึ้นมาอธิบายความรู้เพิ่มเติม (กดฟังเสียงได้ 🔊)</span>
-                </li>
-                <li class="flex items-start">
-                    <i class="fas fa-trophy text-yellow-600 mt-1 mr-2 w-5"></i>
-                    <span><strong>การผ่านด่าน:</strong> เมื่อจับคู่ครบทุกใบ จะมีสรุปผลและพาไปด่านถัดไป</span>
+                    <span><strong>AI Corner:</strong> เกร็ดความรู้จากพี่ AI จะเด้งขึ้นมาอธิบายเมื่อจับคู่ถูก</span>
                 </li>
             </ul>
         </div>
@@ -261,21 +249,31 @@
                 </div>
             </div>
 
-            <div class="flex items-center justify-between px-2">
-                <div class="level-dot w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center font-bold text-gray-400 text-sm active"
-                    id="dot-1">1</div>
+            <!-- 8 Level Dots Indicator -->
+            <div class="flex items-center justify-between px-2 overflow-x-auto pb-2">
+                <!-- Dot 1 -->
+                <div class="level-dot rounded-full border-2 border-gray-300 flex items-center justify-center font-bold text-gray-400 text-xs active" id="dot-1">1</div>
                 <div class="level-line" id="line-1"></div>
-                <div class="level-dot w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center font-bold text-gray-400 text-sm"
-                    id="dot-2">2</div>
+                <!-- Dot 2 -->
+                <div class="level-dot rounded-full border-2 border-gray-300 flex items-center justify-center font-bold text-gray-400 text-xs" id="dot-2">2</div>
                 <div class="level-line" id="line-2"></div>
-                <div class="level-dot w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center font-bold text-gray-400 text-sm"
-                    id="dot-3">3</div>
+                <!-- Dot 3 -->
+                <div class="level-dot rounded-full border-2 border-gray-300 flex items-center justify-center font-bold text-gray-400 text-xs" id="dot-3">3</div>
                 <div class="level-line" id="line-3"></div>
-                <div class="level-dot w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center font-bold text-gray-400 text-sm"
-                    id="dot-4">4</div>
+                <!-- Dot 4 -->
+                <div class="level-dot rounded-full border-2 border-gray-300 flex items-center justify-center font-bold text-gray-400 text-xs" id="dot-4">4</div>
                 <div class="level-line" id="line-4"></div>
-                <div class="level-dot w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center font-bold text-gray-400 text-sm"
-                    id="dot-5">5</div>
+                <!-- Dot 5 -->
+                <div class="level-dot rounded-full border-2 border-gray-300 flex items-center justify-center font-bold text-gray-400 text-xs" id="dot-5">5</div>
+                <div class="level-line" id="line-5"></div>
+                <!-- Dot 6 -->
+                <div class="level-dot rounded-full border-2 border-gray-300 flex items-center justify-center font-bold text-gray-400 text-xs" id="dot-6">6</div>
+                <div class="level-line" id="line-6"></div>
+                <!-- Dot 7 -->
+                <div class="level-dot rounded-full border-2 border-gray-300 flex items-center justify-center font-bold text-gray-400 text-xs" id="dot-7">7</div>
+                <div class="level-line" id="line-7"></div>
+                <!-- Dot 8 -->
+                <div class="level-dot rounded-full border-2 border-gray-300 flex items-center justify-center font-bold text-gray-400 text-xs" id="dot-8">8</div>
             </div>
         </header>
 
@@ -283,8 +281,6 @@
         <div id="game-board" class="grid w-full max-w-4xl mx-auto transition-all duration-300 mb-8">
             <!-- Cards will be generated here -->
         </div>
-
-
 
         <!-- AI Knowledge Corner -->
         <div id="ai-corner"
@@ -336,7 +332,7 @@
                     </header>
 
                     <!-- Tabs -->
-                    <div class="flex rounded-lg bg-gray-200 p-1 mb-6 shadow-inner">
+                    <div class="flex flex-col md:flex-row rounded-lg bg-gray-200 p-1 mb-6 shadow-inner gap-1">
                         <button onclick="switchTab('antibiotics')" id="tab-antibiotics"
                             class="flex-1 py-3 px-4 rounded-md text-sm font-semibold transition-all duration-200 bg-white text-indigo-700 shadow-sm">
                             นวัตกรรมทดแทนยาปฏิชีวนะ
@@ -344,6 +340,10 @@
                         <button onclick="switchTab('ssuis')" id="tab-ssuis"
                             class="flex-1 py-3 px-4 rounded-md text-sm font-semibold transition-all duration-200 text-gray-600 hover:text-gray-800">
                             โรคสเตรปโตคอคคัส ซูอิส
+                        </button>
+                        <button onclick="switchTab('gender_amr')" id="tab-gender"
+                            class="flex-1 py-3 px-4 rounded-md text-sm font-semibold transition-all duration-200 text-gray-600 hover:text-gray-800">
+                            มิติทางเพศ & AMR
                         </button>
                     </div>
 
@@ -399,7 +399,7 @@
                 <i class="fas fa-trophy text-4xl text-yellow-600"></i>
             </div>
             <h2 class="text-3xl font-bold text-gray-800 mb-2">ผู้เชี่ยวชาญ S. suis!</h2>
-            <p class="text-gray-600 mb-6">คุณตอบคำถามครบ 5 ด่านและมีความรู้เรื่องโรคนี้อย่างยอดเยี่ยม</p>
+            <p class="text-gray-600 mb-6">คุณตอบคำถามครบ 8 ด่านและมีความรู้เรื่องโรคและมิติทางสังคมอย่างยอดเยี่ยม</p>
             <div class="bg-gray-50 p-4 rounded-xl mb-6">
                 <p class="text-sm text-gray-500 mb-1">เวลารวมทั้งหมด</p>
                 <p class="text-2xl font-bold text-green-600" id="total-time">00:00</p>
@@ -441,9 +441,9 @@
     <script src="https://unpkg.com/paho-mqtt@1.1.0/paho-mqtt.min.js"></script>
     <script>
         // TODO: Insert your Google Gemini API Key here to enable AI features (Explanation & TTS)
-        const apiKey = "";
+        const apiKey = "AIzaSyBBqJqIg6CTShy1mvyD22N9ynaMKGmFeoM";
 
-        // --- Game Data (5 Levels) ---
+        // --- Game Data (8 Levels Now) ---
         const levelsData = [
             {
                 title: "ด่านที่ 1: รู้จักเชื้อเบื้องต้น",
@@ -504,7 +504,7 @@
                 ]
             },
             {
-                title: "ด่านที่ 5: พิชิตโรค (Final Quiz)",
+                title: "ด่านที่ 5: พิชิตโรค",
                 pairs: [
                     { id: "5-1", text: "ยาปฏิชีวนะหลักคือ?", icon: "fa-pills", type: "q" },
                     { id: "5-1", text: "เพนิซิลลิน", icon: "fa-prescription-bottle", type: "a" },
@@ -522,6 +522,42 @@
                     { id: "5-7", text: "ลิ้นหัวใจอักเสบ", icon: "fa-heartbeat", type: "a" },
                     { id: "5-8", text: "รอยโรคที่ปอดคือ?", icon: "fa-lungs-virus", type: "q" },
                     { id: "5-8", text: "ปอดบวม", icon: "fa-lungs", type: "a" }
+                ]
+            },
+            // --- NEW LEVELS START HERE ---
+            {
+                title: "ด่านที่ 6: บทบาททางสังคม (Roles)",
+                pairs: [
+                    { id: "6-1", text: "ผู้หญิงเตรียมอาหาร", icon: "fa-utensils", type: "q" },
+                    { id: "6-1", text: "เสี่ยงรับเชื้อจากเนื้อดิบ", icon: "fa-hand-holding-medical", type: "a" },
+                    { id: "6-2", text: "บุคลากรแพทย์ 70% เป็นหญิง", icon: "fa-user-nurse", type: "q" },
+                    { id: "6-2", text: "ด่านหน้าเสี่ยงรับเชื้อ", icon: "fa-hospital-user", type: "a" },
+                    { id: "6-3", text: "ผู้ชายไปอบรม แต่ใครเลี้ยง?", icon: "fa-chalkboard-teacher", type: "q" },
+                    { id: "6-3", text: "ผู้หญิง (ขาดความรู้)", icon: "fa-female", type: "a" }
+                ]
+            },
+            {
+                title: "ด่านที่ 7: พฤติกรรมและอคติ (Bias)",
+                pairs: [
+                    { id: "7-1", text: "ผู้ชายกลัวดูอ่อนแอ", icon: "fa-fist-raised", type: "q" },
+                    { id: "7-1", text: "หาหมอช้า / ซื้อยากินเอง", icon: "fa-pills", type: "a" },
+                    { id: "7-2", text: "แพทย์กับคนไข้ผู้หญิง", icon: "fa-stethoscope", type: "q" },
+                    { id: "7-2", text: "อคติจ่ายยาเกินจำเป็น", icon: "fa-prescription", type: "a" },
+                    { id: "7-3", text: "ผู้นำองค์กรชายล้วน", icon: "fa-user-tie", type: "q" },
+                    { id: "7-3", text: "นโยบายมองข้ามผู้หญิง", icon: "fa-eye-slash", type: "a" }
+                ]
+            },
+            {
+                title: "ด่านที่ 8: โครงสร้างพื้นฐาน (Vulnerability)",
+                pairs: [
+                    { id: "8-1", text: "เกษตรกรหญิงทุนน้อย", icon: "fa-coins", type: "q" },
+                    { id: "8-1", text: "พึ่งยาถูกเพื่อพยุงชีพ", icon: "fa-hand-holding-usd", type: "a" },
+                    { id: "8-2", text: "ห้องน้ำไม่สะอาด", icon: "fa-toilet", type: "q" },
+                    { id: "8-2", text: "ติดเชื้อ UTI / กินยาบ่อย", icon: "fa-bacteria", type: "a" },
+                    { id: "8-3", text: "เด็กเล่นในที่ปนเปื้อน", icon: "fa-child", type: "q" },
+                    { id: "8-3", text: "เสี่ยงรับเชื้อสิ่งแวดล้อม", icon: "fa-water", type: "a" },
+                    { id: "8-4", text: "ผู้หญิงเป็นผู้ดูแล (Carer)", icon: "fa-hands-helping", type: "q" },
+                    { id: "8-4", text: "ขาดเงินซื้อยาคุณภาพ", icon: "fa-money-bill-wave-alt", type: "a" }
                 ]
             }
         ];
@@ -621,11 +657,12 @@
         }
 
         function updateLevelIndicator(index) {
-            for (let i = 0; i < 5; i++) {
+            const totalDots = 8;
+            for (let i = 0; i < totalDots; i++) {
                 const dot = document.getElementById(`dot-${i + 1}`);
                 const line = document.getElementById(`line-${i + 1}`);
 
-                dot.className = "level-dot w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center font-bold text-gray-400 text-sm";
+                dot.className = "level-dot rounded-full border-2 border-gray-300 flex items-center justify-center font-bold text-gray-400 text-xs";
                 if (line) line.className = "level-line";
 
                 if (i < index) {
@@ -650,6 +687,7 @@
             const cardCount = cards.length;
             let gridClass = 'grid-cols-3 gap-3';
 
+            if (cardCount === 6) gridClass = 'grid-cols-3 gap-4';
             if (cardCount === 8) gridClass = 'grid-cols-4 md:grid-cols-4 gap-3';
             if (cardCount >= 12) gridClass = 'grid-cols-3 md:grid-cols-4 gap-2 md:gap-4';
             if (cardCount === 16) gridClass = 'grid-cols-4 gap-2';
@@ -817,7 +855,21 @@
             "5-5": "คุณหมอต้องนำเชื้อไปเพาะในห้องแล็บ ถึงจะยืนยันโรคได้ชัวร์ที่สุด",
             "5-6": "อาการคล้ายโรค 'กลาสเซอร์' มาก ต้องให้คุณหมอแยกโรคให้ดี",
             "5-7": "เชื้อเกาะที่ลิ้นหัวใจ ทำให้หัวใจอักเสบ ทำงานผิดปกติ",
-            "5-8": "เชื้อลงไปที่ปอด ทำให้ปอดบวม หายใจลำบาก"
+            "5-8": "เชื้อลงไปที่ปอด ทำให้ปอดบวม หายใจลำบาก",
+            // --- NEW LEVELS: SOCIAL ASPECTS ---
+            // ด่าน 6: บทบาททางสังคม
+            "6-1": "ผู้หญิงมักเป็นคนทำอาหาร ทำให้เสี่ยงสัมผัสเชื้อจากเนื้อหมูดิบผ่านบาดแผลได้มากกว่า",
+            "6-2": "พยาบาลและผู้ดูแลส่วนใหญ่เป็นผู้หญิง ทำให้ต้องใกล้ชิดผู้ป่วยและเสี่ยงรับเชื้อดื้อยา",
+            "6-3": "ผู้ชายมักได้ไปอบรม แต่ผู้หญิงเป็นคนเลี้ยงจริง ทำให้ความรู้เรื่องยาไปไม่ถึงคนปฏิบัติงาน",
+            // ด่าน 7: พฤติกรรม
+            "7-1": "ผู้ชายบางคนกลัวดูอ่อนแอ (Toxic Masculinity) เลยไม่ไปหาหมอ หรือซื้อยากินเองมั่วๆ จนเชื้อดื้อยา",
+            "7-2": "แพทย์บางท่านอาจมีอคติ จ่ายยาปฏิชีวนะให้ผู้หญิงง่ายกว่าเพราะคิดว่าอ่อนแอ ทำให้เสี่ยงดื้อยา",
+            "7-3": "เมื่อคนกำหนดนโยบายมีแต่ผู้ชาย ปัญหาละเอียดอ่อนของผู้หญิงอาจถูกมองข้ามไป",
+            // ด่าน 8: โครงสร้างพื้นฐาน
+            "8-1": "เกษตรกรหญิงที่ยากจน ไม่มีทางเลือก ต้องใช้ยาถูกๆ เพื่อพยุงชีพสัตว์ให้รอด",
+            "8-2": "ห้องน้ำสกปรกทำให้ผู้หญิงติดเชื้อทางเดินปัสสาวะง่าย นำไปสู่การกินยาฆ่าเชื้อบ่อยเกินจำเป็น",
+            "8-3": "เด็กๆ ชอบเล่นดินเล่นน้ำ ซึ่งอาจมีเชื้อดื้อยาตกค้างจากสิ่งแวดล้อม",
+            "8-4": "สังคมคาดหวังให้ผู้หญิงดูแลทุกคน แต่ถ้าไม่มีเงิน ก็อาจต้องซื้อยาชุดไม่ได้มาตรฐานมาใช้"
         };
 
         // --- AI API Logic ---
@@ -841,11 +893,11 @@
                 return;
             }
 
-            const fallbackText = `ความสัมพันธ์ระหว่าง "${term1}" และ "${term2}" เป็นสิ่งสำคัญในการเข้าใจโรค S. suis`;
+            const fallbackText = `ความสัมพันธ์ระหว่าง "${term1}" และ "${term2}" เป็นสิ่งสำคัญในการเข้าใจโรค S. suis และผลกระทบทางสังคม`;
 
             try {
                 const modelName = "gemini-1.5-flash";
-                const prompt = `Explain the connection between '${term1}' and '${term2}' regarding Streptococcus suis in pigs/humans. Keep it very short, simple, fun, and educational for a Thai primary student. Max 2 short sentences in Thai language.`;
+                const prompt = `Explain the connection between '${term1}' and '${term2}' regarding Antimicrobial Resistance (AMR) and Gender roles in One Health context. Keep it very short, simple, fun, and educational for a Thai primary student. Max 2 short sentences in Thai language.`;
 
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`, {
                     method: 'POST',
@@ -871,7 +923,7 @@
 
             } catch (e) {
                 console.error("AI Error:", e);
-                currentExplanation = fallbackText + " (เชื่อมต่อ AI ไม่ได้)";
+                currentExplanation = fallbackText + " (ใช้ข้อมูลสำรองเนื่องจากต่อ AI ไม่ได้)";
             }
 
             displayAIResult(currentExplanation);
@@ -1165,6 +1217,143 @@
                         </div>
                     `
                 }
+            ],
+            gender_amr: [
+                {
+                    title: "บทสรุป (Executive Summary)",
+                    icon: "fa-clipboard-list",
+                    color: "text-red-600",
+                    content: `
+                        <div class="space-y-3">
+                            <p><strong>แก่นของปัญหา:</strong> เพศสภาพและความไม่เท่าเทียมทางสังคมไม่ใช่เรื่องไกลตัว แต่เป็น "ตัวเร่ง" ปัญหาการดื้อยาต้านจุลชีพ (AMR)</p>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li><strong>ผู้หญิง:</strong> แบกรับความเสี่ยงสูงกว่าในฐานะผู้ดูแลหลัก บุคลากรทางการแพทย์ด่านหน้า และเกษตรกรรายย่อย แต่กลับมีอำนาจตัดสินใจน้อย</li>
+                                <li><strong>ผู้ชาย:</strong> พฤติกรรมที่มองว่าการไปหาหมอคือความอ่อนแอ นำไปสู่การวินิจฉัยโรคช้าและการใช้ยาผิดวิธี</li>
+                                <li><strong>นโยบาย:</strong> ขาดมุมมองทางเพศในการกำหนดนโยบายระดับโลก ทำให้มาตรการแก้ปัญหา AMR ยังไม่ครอบคลุม</li>
+                            </ul>
+                        </div>
+                    `
+                },
+                {
+                    title: "1. สถานะข้อมูลและการวิจัย (Data & Research)",
+                    icon: "fa-chart-pie",
+                    color: "text-blue-600",
+                    content: `
+                        <div class="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500 mb-3">
+                            <p><strong>"การแยกแยะข้อมูลตามเพศ คือก้าวแรกของการแก้ปัญหาที่ตรงจุด"</strong></p>
+                        </div>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>สถานการณ์ปัจจุบัน:</strong> รายงานจากระบบ GLASS (ปี 2021) พบว่าจาก 70 ประเทศ มี 53 ประเทศที่ส่งข้อมูลผลทดสอบความไวของยา (AST) แต่มีเพียง "บางส่วน" เท่านั้นที่แยกข้อมูลตามเพศ</li>
+                            <li><strong>สิ่งที่ต้องทำ:</strong> ต้องวิเคราะห์แผนปฏิบัติการระดับชาติ (National Action Plans) ใหม่ เพื่อบูรณาการมิติทางเพศเข้าไปอย่างจริงจัง ไม่ใช่แค่มองภาพรวม</li>
+                        </ul>
+                    `
+                },
+                {
+                    title: "2. บริบทครัวเรือนและชุมชน (Household & Community)",
+                    icon: "fa-home",
+                    color: "text-green-600",
+                    content: `
+                        <div class="mb-3">
+                            <p class="mb-2"><strong>"บทบาททางเพศกำหนดความเสี่ยงตั้งแต่ในบ้าน"</strong></p>
+                            <h4 class="font-bold text-green-700 mt-3">👩‍🦰 ความเสี่ยงของผู้หญิง</h4>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li><strong>ผู้ดูแล (Caregiver):</strong> ใกล้ชิดผู้ป่วยมากที่สุด จึงเสี่ยงรับเชื้อมากที่สุด</li>
+                                <li><strong>อำนาจการเงิน:</strong> แม้จะมีความรู้เรื่องยา แต่หากไม่มีเงิน ก็ไม่สามารถเข้าถึงการรักษาหรือยาที่มีคุณภาพได้</li>
+                                <li><strong>สุขอนามัย (WASH):</strong>
+                                    <ul class="list-circle pl-5 mt-1 text-sm text-gray-600">
+                                        <li>รับผิดชอบการตักน้ำ = สัมผัสแหล่งน้ำปนเปื้อน</li>
+                                        <li>สุขอนามัยไม่ดี = เสี่ยงติดเชื้อทางเดินปัสสาวะ (UTIs) สูง โดยเฉพาะช่วงมีประจำเดือน</li>
+                                        <li>การทำอาหาร = สูดดมควันและสัมผัสเชื้อจากการเตรียมเนื้อสัตว์</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <h4 class="font-bold text-green-700 mt-3">💊 พฤติกรรมการใช้ยา</h4>
+                            <p class="text-sm">ความไม่เท่าเทียมทำให้ผู้หญิงอาจตัดสินใจ "รักษาเอง" เก็บยาไว้กินทีหลัง หรือแบ่งปันยาปฏิชีวนะให้คนอื่นแทนการไปพบแพทย์</p>
+                        </div>
+                    `
+                },
+                {
+                    title: "3. บริบทในสถานพยาบาล (Healthcare Settings)",
+                    icon: "fa-hospital",
+                    color: "text-purple-600",
+                    content: `
+                        <div class="space-y-3">
+                            <p><strong>"อคติทางเพศในระบบหมอและคนไข้ ส่งผลต่อการรักษา"</strong></p>
+                            
+                            <div class="bg-purple-50 p-3 rounded">
+                                <h4 class="font-bold text-purple-700">👩‍⚕️ บุคลากรทางการแพทย์</h4>
+                                <p class="text-sm">ด่านหน้า: ผู้หญิงคือ 70% ของบุคลากรทางการแพทย์ทั่วโลก คือกลุ่มเสี่ยงสูงสุดที่ต้องปะทะกับเชื้อดื้อยา</p>
+                            </div>
+
+                            <h4 class="font-bold text-gray-800">🏥 ผู้ป่วยและการรักษา</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                <li><strong>ผู้ชาย:</strong> มักไม่กล้ามาหาหมอเพราะกลัวดูอ่อนแอ → ผลลัพธ์: มาช้า, อาการหนัก, ชอบยาแรงๆ เพื่อให้หายเร็ว</li>
+                                <li><strong>ผู้หญิง:</strong> ถูกตีตราในบางโรค (เช่น UTIs) ทำให้ไม่กล้ามาหาหมอ</li>
+                                <li><strong>อคติการจ่ายยา:</strong>
+                                    <ul class="list-disc pl-5 mt-1 text-gray-600">
+                                        <li>ผู้หญิงมีแนวโน้มได้รับยาปฏิชีวนะมากกว่าผู้ชายถึง 27% ตลอดช่วงชีวิต</li>
+                                        <li>ใน ICU ผู้หญิงเสี่ยงได้รับการรักษาภาวะช็อกจากการติดเชื้อ (septic shock) ล่าช้ากว่าผู้ชาย</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    `
+                },
+                {
+                    title: "4. ภาคเกษตรกรรม (Agriculture)",
+                    icon: "fa-tractor",
+                    color: "text-yellow-600",
+                    content: `
+                        <div class="space-y-3">
+                            <div class="bg-yellow-50 p-3 rounded border-l-4 border-yellow-500">
+                                <p><strong>"ผู้หญิงคือกระดูกสันหลังที่ถูกมองข้ามในภาคปศุสัตว์"</strong></p>
+                            </div>
+                            
+                            <h4 class="font-bold text-yellow-800">👩‍🌾 ความจริงของเกษตรกรหญิง</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1">
+                                <li><strong>จำนวน:</strong> ผู้หญิงชนบท 400 ล้านคน คือผู้เลี้ยงปศุสัตว์รายย่อย</li>
+                                <li><strong>หน้าที่:</strong> ดูแลสัตว์ป่วย (เสี่ยงรับเชื้อ) ในขณะที่ผู้ชายมักทำหน้าที่ฆ่าสัตว์</li>
+                                <li><strong>อคติโครงการ:</strong> โครงการรณรงค์ AMR มักมุ่งไปที่ "หัวหน้าครอบครัวชาย" ทำให้ข้อมูลไปไม่ถึงผู้หญิงที่เลี้ยงสัตว์จริงๆ</li>
+                            </ul>
+
+                            <h4 class="font-bold text-red-700">🚧 อุปสรรคและผลกระทบ</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1">
+                                <li><strong>เข้าถึงยาก:</strong> ขาดโอกาสเข้าถึงสัตวแพทย์ สินเชื่อ และการฝึกอบรม (บางที่ต้องขออนุญาตสามี)</li>
+                                <li><strong>วงจรความจน:</strong> สัตว์ป่วยตาย = รายได้หาย = ไม่มีเงินรักษาตัวเอง</li>
+                                <li><strong>Impact:</strong> หากผู้หญิงเข้าถึงทรัพยากรเท่าเทียมกัน ผลผลิตจะเพิ่ม 20-30% และลดจำนวนผู้หิวโหยได้ถึง 100-140 ล้านคน</li>
+                            </ul>
+                        </div>
+                    `
+                },
+                {
+                    title: "5. การตัดสินใจและนโยบาย (Governance & Policy)",
+                    icon: "fa-balance-scale",
+                    color: "text-indigo-600",
+                    content: `
+                        <div class="space-y-3">
+                            <p><strong>"โต๊ะประชุมที่ขาดความสมดุล นำไปสู่นโยบายที่แก้ปัญหาได้ไม่ครบ"</strong></p>
+                            
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="bg-gray-100 p-2 rounded text-center">
+                                    <p class="text-2xl font-bold text-indigo-600">70%</p>
+                                    <p class="text-xs">ผู้นำองค์กรสุขภาพโลกเป็นชาย</p>
+                                </div>
+                                <div class="bg-gray-100 p-2 rounded text-center">
+                                    <p class="text-2xl font-bold text-pink-600">5%</p>
+                                    <p class="text-xs">ผู้นำหญิงจากประเทศรายได้ต่ำ-ปานกลาง</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-indigo-50 p-3 rounded border border-indigo-200">
+                                <h4 class="font-bold text-indigo-800 mb-2">✅ ข้อเสนอแนะจาก WHO</h4>
+                                <ul class="list-check pl-5 text-sm space-y-1">
+                                    <li><i class="fas fa-check text-green-500 mr-1"></i> <strong>ต้องมีที่นั่ง:</strong> เพิ่มสัดส่วนผู้หญิงในกลไกการประสานงาน AMR และคณะทำงานเทคนิค</li>
+                                    <li><i class="fas fa-check text-green-500 mr-1"></i> <strong>ต้องมีผู้เชี่ยวชาญ:</strong> ดึงผู้เชี่ยวชาญด้านเพศสภาพ (Gender Experts) เข้าร่วมทีมวางแผนยุทธศาสตร์ระดับชาติ</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `
+                }
             ]
         };
 
@@ -1186,19 +1375,29 @@
             // Update Tabs
             const tabAntibiotics = document.getElementById('tab-antibiotics');
             const tabSsuis = document.getElementById('tab-ssuis');
+            const tabGender = document.getElementById('tab-gender');
 
+            const inactiveClass = "flex-1 py-3 px-4 rounded-md text-sm font-semibold transition-all duration-200 text-gray-600 hover:text-gray-800";
+            const activeClassBase = "flex-1 py-3 px-4 rounded-md text-sm font-semibold transition-all duration-200 bg-white shadow-sm";
+
+            // Reset all
+            tabAntibiotics.className = inactiveClass;
+            tabSsuis.className = inactiveClass;
+            tabGender.className = inactiveClass;
+
+            // Activate specific
             if (currentTab === 'antibiotics') {
-                tabAntibiotics.className = "flex-1 py-3 px-4 rounded-md text-sm font-semibold transition-all duration-200 bg-white text-indigo-700 shadow-sm";
-                tabSsuis.className = "flex-1 py-3 px-4 rounded-md text-sm font-semibold transition-all duration-200 text-gray-600 hover:text-gray-800";
-
+                tabAntibiotics.className = activeClassBase + " text-indigo-700";
                 document.getElementById('section-title').innerText = "นวัตกรรมลดการใช้ยาปฏิชีวนะ";
                 document.getElementById('section-subtitle').innerText = "แนวทางเลือกใหม่เพื่อความยั่งยืนในอุตสาหกรรมปศุสัตว์";
-            } else {
-                tabAntibiotics.className = "flex-1 py-3 px-4 rounded-md text-sm font-semibold transition-all duration-200 text-gray-600 hover:text-gray-800";
-                tabSsuis.className = "flex-1 py-3 px-4 rounded-md text-sm font-semibold transition-all duration-200 bg-white text-red-700 shadow-sm";
-
+            } else if (currentTab === 'ssuis') {
+                tabSsuis.className = activeClassBase + " text-red-700";
                 document.getElementById('section-title').innerText = "โรคสเตรปโตคอคคัส ซูอิส (S. suis)";
                 document.getElementById('section-subtitle').innerText = "ระบาดวิทยา อาการ และมาตรการควบคุมโรค";
+            } else if (currentTab === 'gender_amr') {
+                tabGender.className = activeClassBase + " text-purple-700";
+                document.getElementById('section-title').innerText = "ความเสมอภาคทางเพศและวิกฤตเชื้อดื้อยา";
+                document.getElementById('section-subtitle').innerText = "บทบาททางสังคมที่ส่งผลต่อการเกิดและแพร่กระจายของ AMR";
             }
 
             // Render Accordion
